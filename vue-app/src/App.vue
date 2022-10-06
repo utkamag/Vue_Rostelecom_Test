@@ -1,8 +1,5 @@
 <template>
-  <div class="container__header">
-    <Header/>
-    <Header/>
-  </div>
+  <Header/>
   <FileList/>
 </template>
 
@@ -39,10 +36,5 @@ export default {
   background: $maincolor;
   width: 100vw;
   height: 100vh;
-}
-.container {
-  &__header {
-    display: flex;
-  }
 }
 </style>

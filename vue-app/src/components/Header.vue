@@ -1,15 +1,30 @@
 <template>
-  <div class="header">
-    <div class="header__root">
-      <select v-model="selected">
-        <option disabled value="">Выберите диск...</option>
-        <option>C:</option>
-        <option>D:</option>
-        <option>E:</option>
-      </select>
-      <button class="header__back">/</button>
+  <div class="container">
+    <div class="header">
+      <div class="header__root">
+        <select v-model="selected">
+          <option disabled value="">Выберите диск...</option>
+          <option>C:</option>
+          <option>D:</option>
+          <option>E:</option>
+        </select>
+        <button class="header__back">/</button>
+      </div>
+      <div class="path">Директория: {{ selected }}</div>
     </div>
-    <div class="path">Директория: {{ selected }}</div>
+
+    <div class="header">
+      <div class="header__root">
+        <select v-model="selectedtwo">
+          <option disabled value="">Выберите диск...</option>
+          <option>C:</option>
+          <option>D:</option>
+          <option>E:</option>
+        </select>
+        <button class="header__back">/</button>
+      </div>
+      <div class="path">Директория: {{ selectedtwo }}</div>
+    </div>
   </div>
 </template>
 
@@ -19,7 +34,8 @@ export default {
 
   data() {
     return {
-      selected: ""
+      selected: "",
+      selectedtwo: ""
     }
   },
 
@@ -36,6 +52,9 @@ export default {
 <style scoped lang="scss">
 @import "src/assets/styles/variables/_variables.scss";
 
+.container {
+  display: flex;
+}
 
 .header {
   display: flex;
@@ -60,6 +79,8 @@ export default {
 .path {
   background: $panelcolor;
   color: $yellowcolor;
+  font-family: Consolas;
+  font-size: 18px;
 }
 
 </style>
