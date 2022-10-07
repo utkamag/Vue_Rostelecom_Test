@@ -1,18 +1,21 @@
 <template>
   <Header/>
   <FileList/>
+  <Footer/>
 </template>
 
 <script>
 
 import Header from "@/components/Header";
 import FileList from "@/components/FileList";
+import Footer from "@/components/Footer";
 
 export default {
   name: 'App',
   components: {
     Header,
-    FileList
+    FileList,
+    Footer,
   }
 }
 </script>
@@ -23,6 +26,7 @@ export default {
 *,
 *::before,
 *::after {
+  font-family: Consolas;
   box-sizing: border-box;
   margin: 0;
   padding: 0;

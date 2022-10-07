@@ -61,7 +61,7 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 10px;
+  padding: 7px;
   background: $panelcolor;
   width: 50vw;
 
