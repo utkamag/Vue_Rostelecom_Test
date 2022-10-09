@@ -64,6 +64,7 @@ export default {
   padding: 7px;
   background: $panelcolor;
   width: 50vw;
+  border: 2px solid $secondcolor;
 
   &__root {
     flex-direction: row;

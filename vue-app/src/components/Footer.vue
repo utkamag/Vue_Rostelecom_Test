@@ -39,6 +39,7 @@ export default {
 @import "src/assets/styles/variables/_variables.scss";
 
 .buttongroup {
+  border: 2px solid $secondcolor;
   display: flex;
   justify-content: left;
   background: black;
