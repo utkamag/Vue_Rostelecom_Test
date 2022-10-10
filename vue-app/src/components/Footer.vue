@@ -1,33 +1,55 @@
 <template>
   <div class="footer">
     <div class="buttongroup">
-      <button class="buttongroup__btn1" v-on:click="setBtn1">Скопировать</button>
-      <button class="buttongroup__btn2">Переместить</button>
-      <button class="buttongroup__btn3">Удалить</button>
+      <button class="buttongroup__btn1" @click="copyBtn">Скопировать</button>
+      <button class="buttongroup__btn2" @click="replaceBtn">Переместить</button>
+      <button class="buttongroup__btn3" @click="deleteBtn">Удалить</button>
     </div>
-    <div v-show="btn1 === true"><PopupCopy/></div>
+    <div v-show="copy === true"><PopupCopy @btn1Click="click1" @btn2Click="click2"/></div>
+    <div v-show="remove === true"><PopupDelete @btn1Click="click1" @btn2Click="click2"/></div>
+    <div v-show="replace === true"><PopupReplace @btn1Click="click1" @btn2Click="click2"/></div>
   </div>
 </template>
 
 <script>
 
 import PopupCopy from "@/components/PopUp/PopupCopy";
+import PopupDelete from "@/components/PopUp/PopupDelete";
+import PopupReplace from "@/components/PopUp/PopupReplace";
 
 export default {
   name: "Footer",
   components: {
-    PopupCopy
+    PopupCopy,
+    PopupDelete,
+    PopupReplace
   },
   data() {
     return {
-      btn1: false,
-      btn2: false,
-      btn3: false
+      copy: false,
+      remove: false,
+      replace: false
     }
   },
   methods: {
-    setBtn1() {
-      this.btn1 = true
+    copyBtn() {
+      this.copy = true
+    },
+    deleteBtn() {
+      this.remove = true
+    },
+    replaceBtn() {
+      this.replace = true
+    },
+    click1(selected) {
+      this.copy = selected
+      this.remove = selected
+      this.replace = selected
+    },
+    click2(selected) {
+      this.copy = selected
+      this.remove = selected
+      this.replace = selected
     }
   }
 }

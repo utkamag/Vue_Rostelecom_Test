@@ -1,16 +1,9 @@
 <template>
   <div class="popup">
     <div class="popup__content">
-      <h2 class="popup__title">Копировать файл в:</h2>
-      <div class="popup__way">
-        <select v-model="btn1">
-        <option disabled value="">Директория...</option>
-        <option>C:</option>
-        <option>D:</option>
-      </select>
-      </div>
+      <h2 class="popup__title">Вы хотите удалить ... , потвердить?</h2>
       <div class="popup__btn">
-        <button class="popup__btn1" @click="btn1click">Скопировать</button>
+        <button class="popup__btn1" @click="btn1click">Удалить</button>
         <button class="popup__btn2" @click="btn2click">Отмена</button>
       </div>
     </div>
@@ -19,7 +12,7 @@
 
 <script>
 export default {
-  name: "PopupCopy",
+  name: "PopupDelete",
   data() {
     return {
       btn1: false,
@@ -65,7 +58,7 @@ export default {
 
   &__btn {
     display: flex;
-    margin-top: 100px;
+    margin-top: 150px;
     margin-right: 750px;
   }
 
