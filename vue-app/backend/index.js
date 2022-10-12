@@ -1,6 +1,6 @@
 import express from 'express';
 import mongoose from "mongoose";
-import Post from "./Post/Post.js";
+import Router from "./Router/Router.js";
 
 const PORT = 5000;
 const DB_URL = `mongodb+srv://utkamag:Hesoyam1973@cluster0.ymhhgli.mongodb.net/?retryWrites=true&w=majority`
@@ -8,18 +8,7 @@ const DB_URL = `mongodb+srv://utkamag:Hesoyam1973@cluster0.ymhhgli.mongodb.net/?
 const app = express()
 
 app.use(express.json())
-
-app.post('/', (req, res) => {
-    const {directory} = req.body
-    const post = Post.create({directory})
-    res.json(post)
-})
-
-app.get('/', (req, res) => {
-    res.send("Сервер работает!")
-    console.log(req.body)
-})
-
+app.use("/api", Router)
 
 
 async function startApp () {
