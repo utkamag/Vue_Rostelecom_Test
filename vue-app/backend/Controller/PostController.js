@@ -6,13 +6,13 @@ class PostController {
             const {directory} = req.body
             const post = await Post.create({directory})
             res.json(post)
-        } catch (e) {
+        }catch (e) {
             res.status(500).json(e)
         }
     }
 
     async getAll(req, res) {
-        try {
+        try{
             const posts = await Post.find()
             return res.json(posts)
 
@@ -24,10 +24,10 @@ class PostController {
     async getOne(req, res) {
         try {
             const {id} = req.params
-            if (!id) {
+            if(!id){
                 res.status(400).json({message: "Id не указан"})
             }
-            const post = Post.findById(id)
+            const post = await Post.findById(id)
             return res.json(post)
         } catch (e) {
             res.status(500).json(e)
@@ -40,8 +40,9 @@ class PostController {
             if (!post._id) {
                 res.status(400).json({message: "Id не указан"})
             }
-            const updatePost = await Post.findByIdAndUpdate(post._id, post, {new: true})
-            return res.json(updatePost)
+                const updatePost = await Post.findByIdAndUpdate(post._id, post, {new: true})
+                return res.json(updatePost)
+
         } catch (e) {
             res.status(500).json(e)
         }

@@ -29,20 +29,25 @@
 </template>
 
 <script>
+
+import axios from "axios";
+
+
 export default {
   name: "Header",
 
   data() {
     return {
       selected: "",
-      selectedtwo: ""
+      selectedtwo: "",
+      array: []
     }
   },
 
-  methods: {
-    Test(e) {
-      console.log(e)
-    }
+  mounted() {
+    axios
+        .get(`http://localhost:5000/api/post/`)
+        .then(response => this.array = response)
   }
 }
 
