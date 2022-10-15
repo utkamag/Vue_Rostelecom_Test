@@ -1,14 +1,18 @@
 import express from 'express';
 import mongoose from "mongoose";
 import Router from "./Router/Router.js";
+import cors from "cors"
 
-const PORT = 5000;
+const PORT = 8081;
 const DB_URL = `mongodb+srv://utkamag:Hesoyam1973@cluster0.ymhhgli.mongodb.net/?retryWrites=true&w=majority`
 
 const app = express()
 
 app.use(express.json())
 app.use("/api", Router)
+app.use(cors({
+    origin: "*"
+}))
 
 
 async function startApp () {

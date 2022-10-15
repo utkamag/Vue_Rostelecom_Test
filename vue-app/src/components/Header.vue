@@ -23,7 +23,7 @@
         </select>
         <button class="header__back">/</button>
       </div>
-      <div class="path">Директория: {{ selectedtwo }}</div>
+      <div class="path">Директория: {{array}} {{ selectedtwo }}</div>
     </div>
   </div>
 </template>
@@ -44,11 +44,19 @@ export default {
     }
   },
 
+
   mounted() {
-    axios
-        .get(`http://localhost:5000/api/post/`)
-        .then(response => this.array = response)
+    axios('http://localhost:8081/api/post', {
+      method: 'GET',
+      mode: 'no-cors',
+    }).then((response) => {
+      console.log(response);
+    }).catch((e) => {
+      console.log(e);
+    });
   }
+
+
 }
 
 </script>
