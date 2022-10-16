@@ -23,7 +23,9 @@
         </select>
         <button class="header__back">/</button>
       </div>
-      <div class="path">Директория: {{array}} {{ selectedtwo }}</div>
+      <div class="path">Директория: {{ selectedtwo }}
+        <span v-for="item in items">{{item}}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -40,20 +42,15 @@ export default {
     return {
       selected: "",
       selectedtwo: "",
-      array: []
+      items: []
     }
   },
 
 
   mounted() {
-    axios('http://localhost:8081/api/post', {
-      method: 'GET',
-      mode: 'no-cors',
-    }).then((response) => {
-      console.log(response);
-    }).catch((e) => {
-      console.log(e);
-    });
+    axios
+        .get("http://localhost:3000/api/post")
+        .then(response => this.items = response)
   }
 
 
