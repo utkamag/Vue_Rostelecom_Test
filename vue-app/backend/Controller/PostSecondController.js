@@ -1,10 +1,10 @@
-import Post from "../Post/Post.js";
+import SecondPostPost from "../Post/Post.js";
 
 class PostController {
     async create(req, res) {
         try {
             const {directory, directory_A, directory_B, name, size, date, time} = req.body
-            const post = await Post.create({directory, directory_A, directory_B, name, size, date, time})
+            const post = await SecondPost.create({directory, directory_A, directory_B, name, size, date, time})
             res.json(post)
         }catch (e) {
             res.status(500).json(e)
@@ -13,7 +13,7 @@ class PostController {
 
     async getAll(req, res) {
         try{
-            const posts = await Post.find()
+            const posts = await SecondPost.find()
             return res.json(posts)
 
         } catch (e) {
@@ -27,7 +27,7 @@ class PostController {
             if(!id){
                 res.status(400).json({message: "Id не указан"})
             }
-            const post = await Post.findById(id)
+            const post = await SecondPost.findById(id)
             return res.json(post)
         } catch (e) {
             res.status(500).json(e)
@@ -40,8 +40,8 @@ class PostController {
             if (!post._id) {
                 res.status(400).json({message: "Id не указан"})
             }
-                const updatePost = await Post.findByIdAndUpdate(post._id, post, {new: true})
-                return res.json(updatePost)
+            const updatePost = await SecondPost.findByIdAndUpdate(post._id, post, {new: true})
+            return res.json(updatePost)
 
         } catch (e) {
             res.status(500).json(e)
@@ -54,7 +54,7 @@ class PostController {
             if (!id) {
                 res.status(400).json({message: "Id не указан"})
             }
-            const deletePost = await Post.findByIdAndDelete(id)
+            const deletePost = await SecondPost.findByIdAndDelete(id)
             return res.json(deletePost)
 
         } catch (e) {

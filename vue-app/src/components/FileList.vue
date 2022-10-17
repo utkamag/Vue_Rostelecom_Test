@@ -5,18 +5,22 @@
         <div class="file__name">
           <div class="file__name-title">Имя</div>
           <div class="file__name-text">Имя</div>
+          <div v-for="item in items">{{item.name}}</div>
         </div>
         <div class="file__size">
           <div class="file__size-title">Размер</div>
           <div class="file__size-text">Размер</div>
+          <div v-for="item in items">{{item.size}}</div>
         </div>
         <div class="file__date">
           <div class="file__date-title">Дата</div>
           <div class="file__date-text">Дата</div>
+          <div v-for="item in items">{{item.date}}</div>
         </div>
         <div class="file__time">
           <div class="file__time-title">Время</div>
           <div class="file__time-text">Время</div>
+          <div v-for="item in items">{{item.time}}</div>
         </div>
       </div>
       <div class="file__panel">
@@ -42,8 +46,24 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  name: "FileList"
+  name: "FileList",
+  data() {
+    return{
+      items: [],
+      name: "",
+      size: "",
+      date: "",
+      time: ""
+    }
+  },
+  mounted() {
+    axios
+        .get("http://localhost:3000/api/post")
+        .then(response => this.items = response.data)
+  }
 }
 </script>
 

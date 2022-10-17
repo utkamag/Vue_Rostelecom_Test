@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const Post = new mongoose.Schema({
+const SecondPost = new mongoose.Schema({
     directory_A: {type: String},
     directory_B: {type: String},
     name: {type: String},
@@ -9,4 +9,4 @@ const Post = new mongoose.Schema({
     time: {type: String}
 })
 
-export default mongoose.model('Post', Post)
+export default mongoose.model('SecondPost', SecondPost)
