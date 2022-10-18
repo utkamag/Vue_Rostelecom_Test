@@ -1,19 +1,22 @@
 import Router from "express"
-import PostController from "../Controller/PostController.js";
+import PostController_C from "../Controller/PostController_C.js";
+import PostController_D from "../Controller/PostController_D.js";
 
 const router = new Router()
 
-router.post('/post', PostController.create)
-router.get('/post', PostController.getAll)
-router.get('/post/:id', PostController.getOne)
-router.put('/post', PostController.update)
-router.delete('/post/:id', PostController.delete)
+router.post('/c', PostController_C.create)
+router.get('/c', PostController_C.getAll)
+router.get('/c/:id', PostController_C.getOne)
+router.put('/c', PostController_C.update)
+router.delete('/c/:id', PostController_C.delete)
 
-router.post('/secondpost', PostController.create)
-router.get('/secondpost', PostController.getAll)
-router.get('/secondpost/:id', PostController.getOne)
-router.put('/secondpost', PostController.update)
-router.delete('/secondpost/:id', PostController.delete)
+router.post('/d', PostController_D.create)
+router.get('/d', PostController_D.getAll)
+router.get('/d/:id', PostController_D.getOne)
+router.put('/d', PostController_D.update)
+router.delete('/d/:id', PostController_D.delete)
+
+
 
 export default router;
 

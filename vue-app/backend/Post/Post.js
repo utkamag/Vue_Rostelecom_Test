@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 const Post = new mongoose.Schema({
     directory_A: {type: String},
-    directory_B: {type: String},
     name: {type: String},
     size: {type: String},
     date: {type: String},

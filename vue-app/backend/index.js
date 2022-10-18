@@ -9,7 +9,7 @@ const DB_URL = `mongodb+srv://utkamag:Hesoyam1973@cluster0.ymhhgli.mongodb.net/?
 const app = express()
 
 app.use(express.json())
-app.use("/api", Router)
+app.use("/post", Router)
 
 
 
