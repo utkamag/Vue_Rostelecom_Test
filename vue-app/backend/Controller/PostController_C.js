@@ -3,7 +3,7 @@ import PostServiceC from "../Service/PostServiceC.js";
 class PostController_C {
     async create(req, res) {
         try {
-            const post = await PostService.create(req.body)
+            const post = await PostServiceC.create(req.body)
             res.json(post)
         }catch (e) {
             res.status(500).json(e)
@@ -12,7 +12,7 @@ class PostController_C {
 
     async getAll(req, res) {
         try{
-            const posts = await PostService.getAll()
+            const posts = await PostServiceC.getAll()
             return res.json(posts)
 
         } catch (e) {
@@ -22,7 +22,7 @@ class PostController_C {
 
     async getOne(req, res) {
         try {
-            const post = await PostService.getOne(req.params.id)
+            const post = await PostServiceC.getOne(req.params.id)
             return res.json(post)
         } catch (e) {
             res.status(500).json(e)
@@ -31,7 +31,7 @@ class PostController_C {
 
     async update(req, res) {
         try {
-                const updatePost = await PostService.update(req.body)
+                const updatePost = await PostServiceC.update(req.body)
                 return res.json(updatePost)
 
         } catch (e) {
@@ -41,7 +41,7 @@ class PostController_C {
 
     async delete(req, res) {
         try {
-            const deletePost = await PostService.delete(req.params.id)
+            const deletePost = await PostServiceC.delete(req.params.id)
             return res.json(deletePost)
 
         } catch (e) {

@@ -6,8 +6,8 @@
           <option disabled value="">Выберите диск...</option>
           <option>C:\</option>
           <option>D:\</option>
-          <option>E:\</option>
         </select>
+        <button class="header__submit" @click="getDisk">Принять</button>
         <button class="header__back">/</button>
       </div>
       <div class="path">Директория: {{ selected }}
@@ -18,13 +18,13 @@
       <div class="header__root">
         <select v-model="selectedtwo" v-on:change="submitTwo">
           <option disabled value="">Выберите диск...</option>
-          <option>C:\</option>
-          <option>D:\</option>
           <option>E:\</option>
+          <option>F:\</option>
         </select>
+        <button class="header__submit" @click="getDisk">Принять</button>
         <button class="header__back">/</button>
       </div>
-      <div class="path">Директория: {{ selectedtwo }}
+      <div class="path">Директория: {{ selectedTwo }}
         <span v-for="item in items">{{ item.name }}</span>
       </div>
     </div>
@@ -32,7 +32,6 @@
 </template>
 
 <script>
-
 import axios from "axios";
 
 
@@ -42,35 +41,32 @@ export default {
   data() {
     return {
       selected: "",
-      selectedtwo: "",
-      items: []
+      selectedTwo: "",
+      items: [],
+      arrayDiskC: [],
+      arrayDiskD: []
     }
   },
 
   methods: {
-    submitOne() {
-      axios
-          .put("http://localhost:3000/api/post", {
-            "directory_A": `${this.selected}`,
-            "_id":"634d211869fc18bc72848cd1"
-          })
-    },
-    submitTwo() {
-      axios
-          .put("http://localhost:3000/api/post", {
-            "directory_B": `${this.selectedtwo}`,
-            "_id":"634d211869fc18bc72848cd1"
-          })
+    async getDisk() {
+      if(this.selected === "C:\\") {
+        axios
+            .get("http://localhost:3000/post/c")
+            .then(response => this.arrayDiskC = response.data)
+        this.$emit("createC", this.arrayDiskC, this.selected)
+      }
+      else if (this.selected === "D:\\") {
+        axios
+            .get("http://localhost:3000/post/d")
+            .then(response => this.arrayDiskD = response.data)
+        this.$emit("createD", this.arrayDiskD, this.selected)
+      }
+      else {
+        alert("Необходимо выбрать диск")
+      }
     }
-
   },
-
-  mounted() {
-    axios
-        .get(`http://localhost:3000/api/post`)
-        .then(response => (this.items = response.data))
-        .then(console.log(this.items))
-  }
 }
 
 </script>
@@ -102,6 +98,7 @@ export default {
     width: 20px;
     margin-left: 10px;
   }
+
   &__submit {
     margin-left: 10px;
   }

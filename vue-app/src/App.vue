@@ -1,6 +1,6 @@
 <template>
-  <Header/>
-  <FileList/>
+  <Header @createC="createFilesC" @createD="createFilesD" />
+  <FileList :items="itemsDiskC" :files="itemsDiskD" :direction="direction"/>
   <Footer/>
 </template>
 
@@ -16,6 +16,23 @@ export default {
     Header,
     FileList,
     Footer,
+  },
+  data() {
+    return{
+      itemsDiskC:[],
+      itemsDiskD:[],
+      direction: "",
+    }
+  },
+  methods: {
+    createFilesC(item, direction) {
+      this.itemsDiskC = item
+      this.direction = direction
+    },
+    createFilesD(item, direction) {
+      this.itemsDiskD = item
+      this.direction = direction
+    }
   }
 }
 </script>

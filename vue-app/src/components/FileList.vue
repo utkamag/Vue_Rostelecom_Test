@@ -5,22 +5,26 @@
         <div class="file__name">
           <div class="file__name-title">Имя</div>
           <div class="file__name-text">Имя</div>
-          <div v-for="item in items">{{item.name}}</div>
+          <div v-if="direction === direction1" v-for="item in items">{{item.name}}</div>
+          <div v-if="direction === direction2" v-for="file in files">{{file.name}}</div>
         </div>
         <div class="file__size">
           <div class="file__size-title">Размер</div>
           <div class="file__size-text">Размер</div>
           <div v-for="item in items">{{item.size}}</div>
+          <div v-for="file in files">{{file.size}}</div>
         </div>
         <div class="file__date">
           <div class="file__date-title">Дата</div>
           <div class="file__date-text">Дата</div>
           <div v-for="item in items">{{item.date}}</div>
+          <div v-for="file in files">{{file.date}}</div>
         </div>
         <div class="file__time">
           <div class="file__time-title">Время</div>
           <div class="file__time-text">Время</div>
           <div v-for="item in items">{{item.time}}</div>
+          <div v-for="file in files">{{file.time}}</div>
         </div>
       </div>
       <div class="file__panel">
@@ -52,17 +56,28 @@ export default {
   name: "FileList",
   data() {
     return{
-      items: [],
-      name: "",
+      direction1: "C:\\",
+      direction2: "D:\\",
       size: "",
       date: "",
       time: ""
     }
   },
-  mounted() {
-    axios
-        .get("http://localhost:3000/api/post")
-        .then(response => this.items = response.data)
+  props: {
+    items: {
+      type: Array,
+      required: true
+    },
+    files: {
+      type: Array,
+      required: true
+    },
+    direction: {
+      type: Object
+    }
+  },
+  methods: {
+
   }
 }
 </script>
