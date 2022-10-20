@@ -2,47 +2,39 @@
   <div class="file">
     <div class="file__content">
       <div class="file__panel">
-        <div class="file__name">
+        <div class="file__name" v-on:click="LinkToNextDirectory">
           <div class="file__name-title">Имя</div>
-          <div class="file__name-text">Имя</div>
-          <div v-if="direction === direction1" v-for="item in items">{{item.name}}</div>
-          <div v-if="direction === direction2" v-for="file in files">{{file.name}}</div>
+          <div class="file__line-name" v-if="direction === direction1" v-for="item in items">{{item.data.name}}</div>
+          <div class="file__line-name" v-if="direction === direction2" v-for="file in files">{{file.data.name}}</div>
         </div>
         <div class="file__size">
           <div class="file__size-title">Размер</div>
-          <div class="file__size-text">Размер</div>
-          <div v-for="item in items">{{item.size}}</div>
-          <div v-for="file in files">{{file.size}}</div>
+          <div class="file__line-size" v-if="direction === direction1" v-for="item in items">{{item.data.size}}</div>
+          <div class="file__line-size" v-if="direction === direction2" v-for="file in files">{{file.data.size}}</div>
         </div>
         <div class="file__date">
           <div class="file__date-title">Дата</div>
-          <div class="file__date-text">Дата</div>
-          <div v-for="item in items">{{item.date}}</div>
-          <div v-for="file in files">{{file.date}}</div>
+          <div class="file__line-date" v-if="direction === direction1" v-for="item in items">{{item.data.date}}</div>
+          <div class="file__line-date" v-if="direction === direction2" v-for="file in files">{{file.data.date}}</div>
         </div>
         <div class="file__time">
           <div class="file__time-title">Время</div>
-          <div class="file__time-text">Время</div>
-          <div v-for="item in items">{{item.time}}</div>
-          <div v-for="file in files">{{file.time}}</div>
+          <div class="file__line-time" v-if="direction === direction1" v-for="item in items">{{item.data.time}}</div>
+          <div class="file__line-time" v-if="direction === direction2" v-for="file in files">{{file.data.time}}</div>
         </div>
       </div>
       <div class="file__panel">
           <div class="file__name">
             <div class="file__name-title">Имя</div>
-            <div class="file__name-text">Имя</div>
           </div>
           <div class="file__size">
             <div class="file__size-title">Размер</div>
-            <div class="file__size-text">Размер</div>
           </div>
           <div class="file__date">
             <div class="file__date-title">Дата</div>
-            <div class="file__date-text">Дата</div>
           </div>
           <div class="file__time">
             <div class="file__time-title">Время</div>
-            <div class="file__time-text">Время</div>
           </div>
         </div>
       </div>
@@ -58,9 +50,8 @@ export default {
     return{
       direction1: "C:\\",
       direction2: "D:\\",
-      size: "",
-      date: "",
-      time: ""
+      tests:"",
+
     }
   },
   props: {
@@ -76,8 +67,25 @@ export default {
       type: Object
     }
   },
-  methods: {
 
+  methods: {
+    // Используем axios all что-бы обработать несколько ссылок
+
+    LinkToNextDirectory(e) {
+      if(e.target.innerText === "Windows") {
+        const requestOne = axios.get("http://localhost:3000/post/c/635183fb664dadeb3b7b5e1d");
+        const requestTwo = axios.get("http://localhost:3000/post/c/63518413664dadeb3b7b5e1f");
+        axios
+            .all([requestOne, requestTwo])
+            .then(response => this.tests = response)
+      }
+      else if(e.target.innerText === "Program Files") {
+        alert(123)
+      }
+      else if(e.target.innerText === "Games") {
+        alert(123)
+      }
+    }
   }
 }
 </script>
@@ -108,22 +116,26 @@ export default {
   }
 
   &__name {
+    color: #028182;
     width: 35%;
     border-right: 3px solid $secondcolor;
   }
 
   &__size {
+    color: #028182;
     width: 22%;
     border-right: 3px solid $secondcolor;
   }
 
   &__date {
+    color: #028182;
     width: 22%;
     border-right: 3px solid $secondcolor;
 
   }
 
   &__time {
+    color: #028182;
     width: 22%;
 
   }
@@ -133,6 +145,7 @@ export default {
     color: $yellowcolor;
     font-size: 19px;
     margin-top: 5px;
+    margin-bottom: 7px;
   }
 
   &__size-title {
@@ -140,6 +153,7 @@ export default {
     color: $yellowcolor;
     font-size: 19px;
     margin-top: 5px;
+    margin-bottom: 7px;
   }
 
   &__date-title {
@@ -147,6 +161,7 @@ export default {
     color: $yellowcolor;
     font-size: 19px;
     margin-top: 5px;
+    margin-bottom: 7px;
   }
 
   &__time-title {
@@ -154,38 +169,32 @@ export default {
     color: $yellowcolor;
     font-size: 19px;
     margin-top: 5px;
+    margin-bottom: 7px;
   }
 
-  &__name-text {
-    font-family: Consolas;
-    color: $secondcolor;
-    text-align: left;
-    font-size: 18px;
-    margin: 4px;
+  &__line-name{
+    color: burlywood;
+    padding: 3px;
   }
 
-  &__size-text {
-    font-family: Consolas;
-    color: $secondcolor;
-    text-align: left;
-    font-size: 18px;
-    margin: 4px;
+  &__line-name:hover{
+    background: $secondcolor;
+    cursor: default;
   }
 
-  &__date-text {
-    font-family: Consolas;
-    color: $secondcolor;
-    text-align: left;
-    font-size: 18px;
-    margin: 4px;
+  &__line-size{
+    padding: 3px;
+    cursor: default;
   }
 
-  &__time-text {
-    font-family: Consolas;
-    color: $secondcolor;
-    text-align: left;
-    font-size: 18px;
-    margin: 4px;
+  &__line-date{
+    padding: 3px;
+    cursor: default;
+  }
+
+  &__line-time{
+    padding: 3px;
+    cursor: default;
   }
 }
 

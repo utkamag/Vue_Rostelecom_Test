@@ -51,15 +51,18 @@ export default {
   methods: {
     async getDisk() {
       if(this.selected === "C:\\") {
+        const requestOne = axios.get("http://localhost:3000/post/c/634fe02e2d3692b37022a71d");
+        const requestTwo = axios.get("http://localhost:3000/post/c/634fe0d82d3692b37022a722");
         axios
-            .get("http://localhost:3000/post/c")
-            .then(response => this.arrayDiskC = response.data)
+            .all([requestOne, requestTwo])
+            .then(response => this.arrayDiskC = response)
         this.$emit("createC", this.arrayDiskC, this.selected)
       }
       else if (this.selected === "D:\\") {
+        const requestOne = axios.get("http://localhost:3000/post/d/634fe24af3ca54bf16157238");
         axios
-            .get("http://localhost:3000/post/d")
-            .then(response => this.arrayDiskD = response.data)
+            .all([requestOne])
+            .then(response => this.arrayDiskD = response)
         this.$emit("createD", this.arrayDiskD, this.selected)
       }
       else {
