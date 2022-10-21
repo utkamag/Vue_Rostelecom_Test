@@ -5,7 +5,8 @@ const Post = new mongoose.Schema({
     name: {type: String},
     size: {type: String},
     date: {type: String},
-    time: {type: String}
+    time: {type: String},
+    img: {type: String}
 })
 
 export default mongoose.model('Post', Post)

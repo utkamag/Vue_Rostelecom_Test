@@ -8,7 +8,7 @@
           <option>D:\</option>
         </select>
         <button class="header__submit" @click="getDisk">Принять</button>
-        <button class="header__back">/</button>
+        <button class="header__back" @click="wayBack">/</button>
       </div>
       <div class="path">Директория: {{ selected }}
         <span v-for="item in items">{{ item.name }}</span></div>
@@ -44,7 +44,8 @@ export default {
       selectedTwo: "",
       items: [],
       arrayDiskC: [],
-      arrayDiskD: []
+      arrayDiskD: [],
+      disabled: false
     }
   },
 
@@ -68,6 +69,9 @@ export default {
       else {
         alert("Необходимо выбрать диск")
       }
+    },
+    wayBack() {
+      this.$emit("wayToBack", this.disabled)
     }
   },
 }
