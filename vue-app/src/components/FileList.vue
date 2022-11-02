@@ -105,7 +105,7 @@ export default {
     // Используем axios all что-бы обработать несколько ссылок
 
     LinkToNextDirectory(e) {
-      if (e.target.innerText === "Windows!!") {
+      if (e.target.innerText === "windows!!") {
         const requestOne = axios.get("http://localhost:3000/post/c/635183fb664dadeb3b7b5e1d");
         const requestTwo = axios.get("http://localhost:3000/post/c/63518413664dadeb3b7b5e1f");
         axios

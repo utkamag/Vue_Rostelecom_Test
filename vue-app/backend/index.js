@@ -8,6 +8,9 @@ const DB_URL = `mongodb+srv://utkamag:Hesoyam1973@cluster0.ymhhgli.mongodb.net/?
 
 const app = express()
 
+app.use(cors({
+    "origin": "*"
+}))
 app.use(express.json())
 app.use("/post", Router)
 
