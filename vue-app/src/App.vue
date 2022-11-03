@@ -1,6 +1,6 @@
 <template>
-  <Header @wayToBack="wayBack" @createC="createFilesC" @createD="createFilesD" />
-  <FileList :items="itemsDiskC" :files="itemsDiskD" :direction="direction" :update="visible" />
+  <Header @createC="createFilesC" @createD="createFilesD" />
+  <FileList :items="itemsDiskC" :files="itemsDiskD" :direction="direction" @VideoClick="TEST"/>
   <Footer/>
 </template>
 
@@ -21,8 +21,7 @@ export default {
     return{
       itemsDiskC:[],
       itemsDiskD:[],
-      direction: "",
-      visible: Boolean
+      direction: ""
     }
   },
   methods: {
@@ -34,10 +33,9 @@ export default {
       this.itemsDiskD = item
       this.direction = direction
     },
-    wayBack(item) {
-      this.visible = item
+    TEST(item) {
+      console.log(item)
     }
-
   }
 }
 </script>

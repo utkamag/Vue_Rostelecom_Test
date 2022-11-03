@@ -4,18 +4,36 @@
       <div class="file__panel">
         <div class="file__name" v-on:click="LinkToNextDirectory">
           <div class="file__name-title">Имя</div>
-          <div class="file__line-name" v-if="this.test" v-for="test in tests">{{ test.data.name }}
+          <template v-if="this.imgs || this.videos || this.games ">
+            <div class="file__line-name" v-if="this.videos" v-for="video in videos">{{ video.data.name }}
+            <img class="file__img" src="../assets/png/video.png" alt="">
           </div>
-          <div v-else>
-            <div class="file__line-name" v-if="direction === direction1" v-for="item in items">{{ item.data.name }}
+            <div class="file__line-name" v-if="this.imgs" v-for="img in imgs">{{ img.data.name }}
+              <img class="file__img" src="../assets/png/image.png" alt="">
+            </div>
+            <div class="file__line-name" v-if="this.games" v-for="game in games">{{ game.data.name }}
+              <img class="file__img" src="../assets/png/program.png" alt="">
+            </div>
+          </template>
+            <div v-else>
+            <div class="file__line-name" @click="TEST" v-if="direction === direction1" v-for="item in items">{{ item.data.name }}
+              <img class="file__img" src="../assets/png/file.png" alt="">
             </div>
             <div class="file__line-name" v-if="direction === direction2" v-for="file in files">{{ file.data.name }}
+              <img class="file__img" src="../assets/png/file.png" alt="">
             </div>
           </div>
         </div>
         <div class="file__size">
           <div class="file__size-title">Размер</div>
-          <div class="file__line-size" v-if="this.tests" v-for="test in tests">{{ test.data.size }}</div>
+          <template v-if="this.imgs || this.videos || this.games">
+            <div class="file__line-size" v-if="this.videos" v-for="video in videos">{{ video.data.size }}
+            </div>
+            <div class="file__line-size" v-if="this.imgs" v-for="img in imgs">{{ img.data.size }}
+            </div>
+            <div class="file__line-size" v-if="this.games" v-for="game in games">{{ game.data.size }}
+            </div>
+          </template>
           <div v-else>
             <div class="file__line-size" v-if="direction === direction1" v-for="item in items">{{ item.data.size }}
             </div>
@@ -26,7 +44,14 @@
         </div>
         <div class="file__date">
           <div class="file__date-title">Дата</div>
-          <div class="file__line-date" v-if="this.tests" v-for="test in tests">{{ test.data.date }}</div>
+          <template v-if="this.imgs || this.videos || this.games">
+            <div class="file__line-date" v-if="this.videos" v-for="video in videos">{{ video.data.date }}
+            </div>
+            <div class="file__line-date" v-if="this.imgs" v-for="img in imgs">{{ img.data.date }}
+            </div>
+            <div class="file__line-date" v-if="this.games" v-for="game in games">{{ game.data.date }}
+            </div>
+          </template>
           <div v-else>
             <div class="file__line-date" v-if="direction === direction1" v-for="item in items">{{
                 item.data.date
@@ -40,7 +65,14 @@
         </div>
         <div class="file__time">
           <div class="file__time-title">Время</div>
-          <div class="file__line-time" v-if="this.tests" v-for="test in tests">{{ test.data.time }}</div>
+          <template v-if="this.imgs || this.videos || this.games">
+            <div class="file__line-time" v-if="this.videos" v-for="video in videos">{{ video.data.time }}
+            </div>
+            <div class="file__line-time" v-if="this.imgs" v-for="img in imgs">{{ img.data.time }}
+            </div>
+            <div class="file__line-time" v-if="this.games" v-for="game in games">{{ game.data.time }}
+            </div>
+          </template>
           <div v-else>
             <div class="file__line-time" v-if="direction === direction1" v-for="item in items">{{
                 item.data.time
@@ -80,7 +112,9 @@ export default {
     return {
       direction1: "C:\\",
       direction2: "D:\\",
-      tests: "",
+      imgs: "",
+      videos: "",
+      games: ""
     }
   },
   props: {
@@ -105,18 +139,33 @@ export default {
     // Используем axios all что-бы обработать несколько ссылок
 
     LinkToNextDirectory(e) {
-      if (e.target.innerText === "windows!!") {
+      if (e.target.innerText === "Windows!!") {
         const requestOne = axios.get("http://localhost:3000/post/c/635183fb664dadeb3b7b5e1d");
         const requestTwo = axios.get("http://localhost:3000/post/c/63518413664dadeb3b7b5e1f");
         axios
             .all([requestOne, requestTwo])
-            .then(response => this.tests = response)
-        this.test = true
+            .then(response => this.imgs = response)
+        this.imgs = true
       } else if (e.target.innerText === "Program Files") {
-        alert(123)
+        const requestOne = axios.get("http://localhost:3000/post/c/6363991bbb9f071a63ee2bbc");
+        const requestTwo = axios.get("http://localhost:3000/post/c/6363a03ebb9f071a63ee2c56");
+        axios
+            .all([requestOne, requestTwo])
+            .then(response => this.videos = response)
+        this.videos = true
+
       } else if (e.target.innerText === "Games") {
-        alert(123)
+        const requestOne = axios.get("http://localhost:3000/post/d/6363a129bb9f071a63ee2c65");
+        const requestTwo = axios.get("http://localhost:3000/post/d/6363a13dbb9f071a63ee2c67");
+        const requestThree = axios.get("http://localhost:3000/post/d/6363a159bb9f071a63ee2c69");
+        axios
+            .all([requestOne, requestTwo, requestThree])
+            .then(response => this.games = response)
+        this.games = true
       }
+    },
+    TEST() {
+      this.$emit("VideoClick", document.querySelector('.file__line-name').innerText)
     }
   }
 }
@@ -205,6 +254,9 @@ export default {
   }
 
   &__line-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: burlywood;
     padding: 3px;
   }
@@ -231,6 +283,7 @@ export default {
 
   &__img {
     width: 1.5vw;
+    margin-left: 5px;
   }
 }
 

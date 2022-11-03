@@ -10,7 +10,7 @@
         <button class="header__submit" @click="getDisk">Принять</button>
         <button class="header__back" @click="wayBack">/</button>
       </div>
-      <div class="path">Директория: {{ selected }}
+      <div class="path">Директория: {{ selected  }}
         <span v-for="item in items">{{ item.name }}</span></div>
     </div>
 
@@ -71,7 +71,7 @@ export default {
       }
     },
     wayBack() {
-      this.$emit("wayToBack", this.disabled)
+      location.reload()
     }
   },
 }
