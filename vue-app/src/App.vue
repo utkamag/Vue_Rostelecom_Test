@@ -1,6 +1,6 @@
 <template>
-  <Header @createC="createFilesC" @createD="createFilesD" />
-  <FileList :items="itemsDiskC" :files="itemsDiskD" :direction="direction" @VideoClick="TEST"/>
+  <Header @createC="createFilesC" @createD="createFilesD" @createE="createFilesE" @createF="createFilesF" :headerDirection="headerDirection" />
+  <FileList :items="itemsDiskC" :files="itemsDiskD" :itemsE="itemsDiskE" filesF="itemsDiskF" :direction="direction" @VideoClick="addDirectoryName"/>
   <Footer/>
 </template>
 
@@ -21,7 +21,10 @@ export default {
     return{
       itemsDiskC:[],
       itemsDiskD:[],
-      direction: ""
+      itemsDiskE:[],
+      itemsDiskF:[],
+      direction: "",
+      headerDirection: ""
     }
   },
   methods: {
@@ -33,8 +36,17 @@ export default {
       this.itemsDiskD = item
       this.direction = direction
     },
-    TEST(item) {
+    createFilesE(item, direction) {
+      this.itemsDiskE = item
+      this.direction = direction
+    },
+    createFilesF(item, direction) {
+      this.itemsDiskF = item
+      this.direction = direction
+    },
+    addDirectoryName(item) {
       console.log(item)
+      this.headerDirection = item
     }
   }
 }

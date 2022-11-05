@@ -6,8 +6,8 @@
           <div class="file__name-title">Имя</div>
           <template v-if="this.imgs || this.videos || this.games ">
             <div class="file__line-name" v-if="this.videos" v-for="video in videos">{{ video.data.name }}
-            <img class="file__img" src="../assets/png/video.png" alt="">
-          </div>
+              <img class="file__img" src="../assets/png/video.png" alt="">
+            </div>
             <div class="file__line-name" v-if="this.imgs" v-for="img in imgs">{{ img.data.name }}
               <img class="file__img" src="../assets/png/image.png" alt="">
             </div>
@@ -15,11 +15,13 @@
               <img class="file__img" src="../assets/png/program.png" alt="">
             </div>
           </template>
-            <div v-else>
-            <div class="file__line-name" @click="TEST" v-if="direction === direction1" v-for="item in items">{{ item.data.name }}
+          <div v-else>
+            <div class="file__line-name" @click="addDirectoryName" v-if="direction === directionC"
+                 v-for="item in items">{{ item.data.name }}
               <img class="file__img" src="../assets/png/file.png" alt="">
             </div>
-            <div class="file__line-name" v-if="direction === direction2" v-for="file in files">{{ file.data.name }}
+            <div class="file__line-name" @click="addDirectoryName" v-if="direction === directionD"
+                 v-for="file in files">{{ file.data.name }}
               <img class="file__img" src="../assets/png/file.png" alt="">
             </div>
           </div>
@@ -86,6 +88,30 @@
         </div>
       </div>
       <div class="file__panel">
+        <div class="file__name" v-on:click="LinkToNextDirectorySecond">
+          <div class="file__name-title">Имя</div>
+          <template v-if="this.secondImgs || this.secondVideos || this.secondGames ">
+            <div class="file__line-name" v-if="this.videos" v-for="video in videos">{{ video.data.name }}
+              <img class="file__img" src="../assets/png/video.png" alt="">
+            </div>
+            <div class="file__line-name" v-if="this.imgs" v-for="img in imgs">{{ img.data.name }}
+              <img class="file__img" src="../assets/png/image.png" alt="">
+            </div>
+            <div class="file__line-name" v-if="this.games" v-for="game in games">{{ game.data.name }}
+              <img class="file__img" src="../assets/png/program.png" alt="">
+            </div>
+          </template>
+          <div v-else>
+            <div class="file__line-name" @click="addDirectoryName" v-if="direction === directionE"
+                 v-for="item in itemsE">{{ item.data.name }}
+              <img class="file__img" src="../assets/png/file.png" alt="">
+            </div>
+            <div class="file__line-name" @click="addDirectoryName" v-if="direction === directionF"
+                 v-for="file in filesF">{{ file.data.name }}
+              <img class="file__img" src="../assets/png/file.png" alt="">
+            </div>
+          </div>
+        </div>
         <div class="file__name">
           <div class="file__name-title">Имя</div>
         </div>
@@ -110,11 +136,15 @@ export default {
   name: "FileList",
   data() {
     return {
-      direction1: "C:\\",
-      direction2: "D:\\",
+      directionC: "C:\\",
+      directionD: "D:\\",
+      directionE: "E:\\",
+      directionF: "F:\\",
       imgs: "",
       videos: "",
-      games: ""
+      secondImgs: "",
+      secondVideos: "",
+      secondGames: ""
     }
   },
   props: {
@@ -123,6 +153,14 @@ export default {
       required: true
     },
     files: {
+      type: Array,
+      required: true
+    },
+    itemsE: {
+      type: Array,
+      required: true
+    },
+    filesF: {
       type: Array,
       required: true
     },
@@ -164,10 +202,39 @@ export default {
         this.games = true
       }
     },
-    TEST() {
-      this.$emit("VideoClick", document.querySelector('.file__line-name').innerText)
+
+    // Экран с данными справа, диски E,F
+
+    LinkToNextDirectorySecond(e) {
+      if (e.target.innerText === "Windows!!") {
+        const requestOne = axios.get("http://localhost:3000/post/c/635183fb664dadeb3b7b5e1d");
+        const requestTwo = axios.get("http://localhost:3000/post/c/63518413664dadeb3b7b5e1f");
+        axios
+            .all([requestOne, requestTwo])
+            .then(response => this.secondImgs = response)
+        this.secondImgs = true
+      } else if (e.target.innerText === "Program Files") {
+        const requestOne = axios.get("http://localhost:3000/post/c/6363991bbb9f071a63ee2bbc");
+        const requestTwo = axios.get("http://localhost:3000/post/c/6363a03ebb9f071a63ee2c56");
+        axios
+            .all([requestOne, requestTwo])
+            .then(response => this.secondVideos = response)
+        this.secondVideos = true
+
+      } else if (e.target.innerText === "Games") {
+        const requestOne = axios.get("http://localhost:3000/post/d/6363a129bb9f071a63ee2c65");
+        const requestTwo = axios.get("http://localhost:3000/post/d/6363a13dbb9f071a63ee2c67");
+        const requestThree = axios.get("http://localhost:3000/post/d/6363a159bb9f071a63ee2c69");
+        axios
+            .all([requestOne, requestTwo, requestThree])
+            .then(response => this.secondGames = response)
+        this.secondGames = true
+      }
+    },
+    addDirectoryName(e) {
+      this.$emit("VideoClick", e.currentTarget.innerText)
     }
-  }
+  },
 }
 </script>
 

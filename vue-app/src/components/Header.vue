@@ -2,7 +2,7 @@
   <div class="container">
     <div class="header">
       <div class="header__root">
-        <select v-model="selected" v-on:change="submitOne">
+        <select v-model="selected">
           <option disabled value="">Выберите диск...</option>
           <option>C:\</option>
           <option>D:\</option>
@@ -10,21 +10,21 @@
         <button class="header__submit" @click="getDisk">Принять</button>
         <button class="header__back" @click="wayBack">/</button>
       </div>
-      <div class="path">Директория: {{ selected  }}
+      <div class="path">Директория: {{ selected  }}{{headerDirection}}
         <span v-for="item in items">{{ item.name }}</span></div>
     </div>
 
     <div class="header">
       <div class="header__root">
-        <select v-model="selectedtwo" v-on:change="submitTwo">
+        <select v-model="selectedTwo">
           <option disabled value="">Выберите диск...</option>
           <option>E:\</option>
           <option>F:\</option>
         </select>
-        <button class="header__submit" @click="getDisk">Принять</button>
-        <button class="header__back">/</button>
+        <button class="header__submit" @click="getSecondDisk">Принять</button>
+        <button class="header__back"  @click="wayBack">/</button>
       </div>
-      <div class="path">Директория: {{ selectedTwo }}
+      <div class="path">Директория: {{ selectedTwo }}{{headerDirection}}
         <span v-for="item in items">{{ item.name }}</span>
       </div>
     </div>
@@ -45,7 +45,15 @@ export default {
       items: [],
       arrayDiskC: [],
       arrayDiskD: [],
+      arrayDiskE: [],
+      arrayDiskF: [],
       disabled: false
+    }
+  },
+
+  props: {
+    headerDirection: {
+      type: String
     }
   },
 
@@ -65,6 +73,26 @@ export default {
             .all([requestOne])
             .then(response => this.arrayDiskD = response)
         this.$emit("createD", this.arrayDiskD, this.selected)
+      }
+      else {
+        alert("Необходимо выбрать диск")
+      }
+    },
+    async getSecondDisk() {
+      if(this.selectedTwo === "E:\\") {
+        const requestOne = axios.get("http://localhost:3000/post/e/63666cc85a9bd18f87328012");
+        const requestTwo = axios.get("http://localhost:3000/post/e/63666d30e318d7cdd8cb2f5d");
+        axios
+            .all([requestOne, requestTwo])
+            .then(response => this.arrayDiskE = response)
+        this.$emit("createE", this.arrayDiskE, this.selectedTwo)
+      }
+      else if (this.selectedTwo === "F:\\") {
+        const requestOne = axios.get("http://localhost:3000/post/f/");
+        axios
+            .all([requestOne])
+            .then(response => this.arrayDiskF = response)
+        this.$emit("createF", this.arrayDiskF, this.selectedTwo)
       }
       else {
         alert("Необходимо выбрать диск")
