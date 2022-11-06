@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      copy: false,
+      copy: true,
       remove: false,
       replace: false
     }
@@ -34,12 +34,15 @@ export default {
   methods: {
     copyBtn() {
       this.copy = true
-    },
-    deleteBtn() {
-      this.remove = true
+      this.$emit("popupCopy", this.copy)
     },
     replaceBtn() {
       this.replace = true
+      this.$emit("popupReplace", this.remove)
+    },
+    deleteBtn() {
+      this.remove = true
+      this.$emit("popupDelete", this.replace)
     },
     click1(selected) {
       this.copy = selected

@@ -1,7 +1,7 @@
 <template>
-  <div class="popup">
+  <div class="popup" v-show="popupCopyOn">
     <div class="popup__content">
-      <h2 class="popup__title">Копировать файл в:</h2>
+      <h2 class="popup__title">Копировать {{names}} файл в:</h2>
       <div class="popup__way">
         <select v-model="btn1">
         <option disabled value="">Директория...</option>
@@ -23,7 +23,19 @@ export default {
   data() {
     return {
       btn1: false,
-      btn2: false
+      btn2: false,
+      popupCopyOff: false
+    }
+  },
+  props: {
+    files: {
+      type: Array
+    },
+    popupCopyOn: {
+      type: String
+    },
+    names: {
+      type: String
     }
   },
   methods: {
@@ -32,6 +44,7 @@ export default {
     },
     btn2click() {
       this.$emit("btn2Click", this.btn2)
+      this.$emit("popupCopyOff", this.popupCopyOff)
     }
   }
 }

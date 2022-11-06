@@ -24,7 +24,7 @@
         <button class="header__submit" @click="getSecondDisk">Принять</button>
         <button class="header__back"  @click="wayBack">/</button>
       </div>
-      <div class="path">Директория: {{ selectedTwo }}{{headerDirection}}
+      <div class="path">Директория: {{ selectedTwo }}{{headerDirectionRight}}
         <span v-for="item in items">{{ item.name }}</span>
       </div>
     </div>
@@ -54,21 +54,24 @@ export default {
   props: {
     headerDirection: {
       type: String
+    },
+    headerDirectionRight: {
+      type: String
     }
   },
 
   methods: {
     async getDisk() {
       if(this.selected === "C:\\") {
-        const requestOne = axios.get("http://localhost:3000/post/c/634fe02e2d3692b37022a71d");
-        const requestTwo = axios.get("http://localhost:3000/post/c/634fe0d82d3692b37022a722");
+        const requestOne = axios.get("https://vuerostelecom.herokuapp.com/c/634fe02e2d3692b37022a71d");
+        const requestTwo = axios.get("https://vuerostelecom.herokuapp.com/c/634fe0d82d3692b37022a722");
         axios
             .all([requestOne, requestTwo])
             .then(response => this.arrayDiskC = response)
         this.$emit("createC", this.arrayDiskC, this.selected)
       }
       else if (this.selected === "D:\\") {
-        const requestOne = axios.get("http://localhost:3000/post/d/634fe24af3ca54bf16157238");
+        const requestOne = axios.get("https://vuerostelecom.herokuapp.com/d/634fe24af3ca54bf16157238");
         axios
             .all([requestOne])
             .then(response => this.arrayDiskD = response)
@@ -80,15 +83,15 @@ export default {
     },
     async getSecondDisk() {
       if(this.selectedTwo === "E:\\") {
-        const requestOne = axios.get("http://localhost:3000/post/e/63666cc85a9bd18f87328012");
-        const requestTwo = axios.get("http://localhost:3000/post/e/63666d30e318d7cdd8cb2f5d");
+        const requestOne = axios.get("https://vuerostelecom.herokuapp.com/e/63666cc85a9bd18f87328012");
+        const requestTwo = axios.get("https://vuerostelecom.herokuapp.com/e/63666d30e318d7cdd8cb2f5d");
         axios
             .all([requestOne, requestTwo])
             .then(response => this.arrayDiskE = response)
         this.$emit("createE", this.arrayDiskE, this.selectedTwo)
       }
       else if (this.selectedTwo === "F:\\") {
-        const requestOne = axios.get("http://localhost:3000/post/f/");
+        const requestOne = axios.get("https://vuerostelecom.herokuapp.com/f/6367b814cd8cfb2ae34d0141");
         axios
             .all([requestOne])
             .then(response => this.arrayDiskF = response)

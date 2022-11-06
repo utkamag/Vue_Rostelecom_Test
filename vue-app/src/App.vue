@@ -1,7 +1,8 @@
 <template>
-  <Header @createC="createFilesC" @createD="createFilesD" @createE="createFilesE" @createF="createFilesF" :headerDirection="headerDirection" />
-  <FileList :items="itemsDiskC" :files="itemsDiskD" :itemsE="itemsDiskE" filesF="itemsDiskF" :direction="direction" @VideoClick="addDirectoryName"/>
-  <Footer/>
+  <Header @createC="createFilesC" @createD="createFilesD" @createE="createFilesE" @createF="createFilesF" :headerDirection="headerDirection" :headerDirectionRight="headerDirectionRight"/>
+  <FileList :items="itemsDiskC" :files="itemsDiskD" :itemsE="itemsDiskE" :filesF="itemsDiskF" :direction="direction" :directionRight="directionRight" @VideoClick="addDirectoryName" @VideoClickRight="addDirectoryNameRight" @sendNames="sendName"/>
+  <Footer @popupCopy="popupCopy"/>
+  <PopupCopy @popupCopyOff="popupCopyOf" :popupCopyOn="popupCopyOn" :files="itemsDiskC" :names="names"/>
 </template>
 
 <script>
@@ -9,10 +10,12 @@
 import Header from "@/components/Header";
 import FileList from "@/components/FileList";
 import Footer from "@/components/Footer";
+import PopupCopy from "@/components/PopUp/PopupCopy";
 
 export default {
   name: 'App',
   components: {
+    PopupCopy,
     Header,
     FileList,
     Footer,
@@ -24,7 +27,12 @@ export default {
       itemsDiskE:[],
       itemsDiskF:[],
       direction: "",
-      headerDirection: ""
+      directionRight: "",
+      headerDirection: "",
+      headerDirectionRight: "",
+      popupCopyOn: "",
+      popupCopyOff: "",
+      names: ""
     }
   },
   methods: {
@@ -38,15 +46,26 @@ export default {
     },
     createFilesE(item, direction) {
       this.itemsDiskE = item
-      this.direction = direction
+      this.directionRight = direction
     },
     createFilesF(item, direction) {
       this.itemsDiskF = item
-      this.direction = direction
+      this.directionRight = direction
     },
     addDirectoryName(item) {
-      console.log(item)
       this.headerDirection = item
+    },
+    addDirectoryNameRight(item) {
+      this.headerDirectionRight = item
+    },
+    popupCopy(item) {
+      this.popupCopyOn = item
+    },
+    popupCopyOf(item) {
+      this.popupCopyOn = item
+    },
+    sendName(item) {
+      this.names = item
     }
   }
 }

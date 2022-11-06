@@ -4,17 +4,17 @@
       <div class="file__panel">
         <div class="file__name" v-on:click="LinkToNextDirectory">
           <div class="file__name-title">Имя</div>
-          <template v-if="this.imgs || this.videos || this.games ">
-            <div class="file__line-name" v-if="this.videos" v-for="video in videos">{{ video.data.name }}
-              <img class="file__img" src="../assets/png/video.png" alt="">
-            </div>
-            <div class="file__line-name" v-if="this.imgs" v-for="img in imgs">{{ img.data.name }}
-              <img class="file__img" src="../assets/png/image.png" alt="">
-            </div>
-            <div class="file__line-name" v-if="this.games" v-for="game in games">{{ game.data.name }}
-              <img class="file__img" src="../assets/png/program.png" alt="">
-            </div>
-          </template>
+            <template v-if="this.imgs || this.videos || this.games">
+              <div class="file__line-name" v-if="this.videos" v-for="video in videos">{{ video.data.name }}
+                <img class="file__img" src="../assets/png/video.png" alt="">
+              </div>
+              <div class="file__line-name" v-if="this.imgs" v-for="img in imgs">{{ img.data.name }}
+                <img class="file__img" src="../assets/png/image.png" alt="">
+              </div>
+              <div class="file__line-name" v-if="this.games" v-for="game in games">{{ game.data.name }}
+                <img class="file__img" src="../assets/png/program.png" alt="">
+              </div>
+            </template>
           <div v-else>
             <div class="file__line-name" @click="addDirectoryName" v-if="direction === directionC"
                  v-for="item in items">{{ item.data.name }}
@@ -37,12 +37,11 @@
             </div>
           </template>
           <div v-else>
-            <div class="file__line-size" v-if="direction === direction1" v-for="item in items">{{ item.data.size }}
+            <div class="file__line-size" v-if="direction === directionC" v-for="item in items">{{ item.data.size }}
             </div>
-            <div class="file__line-size" v-if="direction === direction2" v-for="file in files">{{ file.data.size }}
+            <div class="file__line-size" v-if="direction === directionD" v-for="file in files">{{ file.data.size }}
             </div>
           </div>
-
         </div>
         <div class="file__date">
           <div class="file__date-title">Дата</div>
@@ -55,11 +54,11 @@
             </div>
           </template>
           <div v-else>
-            <div class="file__line-date" v-if="direction === direction1" v-for="item in items">{{
+            <div class="file__line-date" v-if="direction === directionC" v-for="item in items">{{
                 item.data.date
               }}
             </div>
-            <div class="file__line-date" v-if="direction === direction2" v-for="file in files">{{
+            <div class="file__line-date" v-if="direction === directionD" v-for="file in files">{{
                 file.data.date
               }}
             </div>
@@ -76,13 +75,9 @@
             </div>
           </template>
           <div v-else>
-            <div class="file__line-time" v-if="direction === direction1" v-for="item in items">{{
-                item.data.time
-              }}
+            <div class="file__line-time" v-if="direction === directionC" v-for="item in items">{{ item.data.time }}
             </div>
-            <div class="file__line-time" v-if="direction === direction2" v-for="file in files">{{
-                file.data.time
-              }}
+            <div class="file__line-time" v-if="direction === directionD" v-for="file in files">{{ file.data.time }}
             </div>
           </div>
         </div>
@@ -91,38 +86,77 @@
         <div class="file__name" v-on:click="LinkToNextDirectorySecond">
           <div class="file__name-title">Имя</div>
           <template v-if="this.secondImgs || this.secondVideos || this.secondGames ">
-            <div class="file__line-name" v-if="this.videos" v-for="video in videos">{{ video.data.name }}
+            <div class="file__line-name" v-if="this.secondVideos" v-for="video in secondVideos">{{ video.data.name }}
               <img class="file__img" src="../assets/png/video.png" alt="">
             </div>
-            <div class="file__line-name" v-if="this.imgs" v-for="img in imgs">{{ img.data.name }}
+            <div class="file__line-name" v-if="this.secondImgs" v-for="img in secondImgs">{{ img.data.name }}
               <img class="file__img" src="../assets/png/image.png" alt="">
             </div>
-            <div class="file__line-name" v-if="this.games" v-for="game in games">{{ game.data.name }}
+            <div class="file__line-name" v-if="this.secondGames" v-for="game in secondGames">{{ game.data.name }}
               <img class="file__img" src="../assets/png/program.png" alt="">
             </div>
           </template>
           <div v-else>
-            <div class="file__line-name" @click="addDirectoryName" v-if="direction === directionE"
+            <div class="file__line-name" @click="addDirectoryNameRight" v-if="directionRight === directionE"
                  v-for="item in itemsE">{{ item.data.name }}
               <img class="file__img" src="../assets/png/file.png" alt="">
             </div>
-            <div class="file__line-name" @click="addDirectoryName" v-if="direction === directionF"
+            <div class="file__line-name" @click="addDirectoryNameRight" v-if="directionRight === directionF"
                  v-for="file in filesF">{{ file.data.name }}
               <img class="file__img" src="../assets/png/file.png" alt="">
             </div>
           </div>
         </div>
-        <div class="file__name">
-          <div class="file__name-title">Имя</div>
-        </div>
         <div class="file__size">
           <div class="file__size-title">Размер</div>
+          <template v-if="this.secondImgs || this.secondVideos || this.secondGames">
+            <div class="file__line-size" v-if="this.secondVideos" v-for="video in secondVideos">{{ video.data.size }}
+            </div>
+            <div class="file__line-size" v-if="this.secondImgs" v-for="img in secondImgs">{{ img.data.size }}
+            </div>
+            <div class="file__line-size" v-if="this.secondGames" v-for="game in secondGames">{{ game.data.size }}
+            </div>
+          </template>
+          <div v-else>
+            <div class="file__line-size" v-if="directionRight === directionE" v-for="item in itemsE">{{item.data.size }}
+            </div>
+            <div class="file__line-size" v-if="directionRight === directionF" v-for="file in filesF">{{file.data.size }}
+            </div>
+          </div>
         </div>
         <div class="file__date">
           <div class="file__date-title">Дата</div>
+          <template v-if="this.secondImgs || this.secondVideos || this.secondGames">
+            <div class="file__line-date" v-if="this.secondVideos" v-for="video in secondVideos">{{ video.data.date }}
+            </div>
+            <div class="file__line-date" v-if="this.secondImgs" v-for="img in secondImgs">{{ img.data.date }}
+            </div>
+            <div class="file__line-date" v-if="this.secondGames" v-for="game in secondGames">{{ game.data.date }}
+            </div>
+          </template>
+          <div v-else>
+            <div class="file__line-date" v-if="directionRight === directionE" v-for="item in itemsE">{{item.data.date}}
+            </div>
+            <div class="file__line-date" v-if="directionRight === directionF" v-for="file in filesF">{{file.data.date}}
+            </div>
+          </div>
         </div>
         <div class="file__time">
           <div class="file__time-title">Время</div>
+          <template v-if="this.secondImgs || this.secondVideos || this.secondGames">
+            <div class="file__line-time" v-if="this.secondVideos" v-for="video in secondVideos">{{ video.data.time }}
+            </div>
+            <div class="file__line-time" v-if="this.secondImgs" v-for="img in secondImgs">{{ img.data.time }}
+            </div>
+            <div class="file__line-time" v-if="this.secondGames" v-for="game in secondGames">{{ game.data.time }}
+            </div>
+          </template>
+          <div v-else>
+            <div class="file__line-time" v-if="directionRight === directionE" v-for="item in itemsE">{{ item.data.time }}
+            </div>
+            <div class="file__line-time" v-if="directionRight === directionF" v-for="file in filesF">{{ file.data.time }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -142,9 +176,11 @@ export default {
       directionF: "F:\\",
       imgs: "",
       videos: "",
+      games: "",
       secondImgs: "",
       secondVideos: "",
-      secondGames: ""
+      secondGames: "",
+      innerNames: ""
     }
   },
   props: {
@@ -167,6 +203,9 @@ export default {
     direction: {
       type: String
     },
+    directionRight: {
+      type: String
+    },
     update: {
       type: Boolean
     },
@@ -178,24 +217,24 @@ export default {
 
     LinkToNextDirectory(e) {
       if (e.target.innerText === "Windows!!") {
-        const requestOne = axios.get("http://localhost:3000/post/c/635183fb664dadeb3b7b5e1d");
-        const requestTwo = axios.get("http://localhost:3000/post/c/63518413664dadeb3b7b5e1f");
+        const requestOne = axios.get("https://vuerostelecom.herokuapp.com/c/635183fb664dadeb3b7b5e1d");
+        const requestTwo = axios.get("https://vuerostelecom.herokuapp.com/c/63518413664dadeb3b7b5e1f");
         axios
             .all([requestOne, requestTwo])
             .then(response => this.imgs = response)
         this.imgs = true
       } else if (e.target.innerText === "Program Files") {
-        const requestOne = axios.get("http://localhost:3000/post/c/6363991bbb9f071a63ee2bbc");
-        const requestTwo = axios.get("http://localhost:3000/post/c/6363a03ebb9f071a63ee2c56");
+        const requestOne = axios.get("https://vuerostelecom.herokuapp.com/c/6363991bbb9f071a63ee2bbc");
+        const requestTwo = axios.get("https://vuerostelecom.herokuapp.com/c/6363a03ebb9f071a63ee2c56");
         axios
             .all([requestOne, requestTwo])
             .then(response => this.videos = response)
         this.videos = true
 
       } else if (e.target.innerText === "Games") {
-        const requestOne = axios.get("http://localhost:3000/post/d/6363a129bb9f071a63ee2c65");
-        const requestTwo = axios.get("http://localhost:3000/post/d/6363a13dbb9f071a63ee2c67");
-        const requestThree = axios.get("http://localhost:3000/post/d/6363a159bb9f071a63ee2c69");
+        const requestOne = axios.get("https://vuerostelecom.herokuapp.com/d/6363a129bb9f071a63ee2c65");
+        const requestTwo = axios.get("https://vuerostelecom.herokuapp.com/d/6363a13dbb9f071a63ee2c67");
+        const requestThree = axios.get("https://vuerostelecom.herokuapp.com/d/6363a159bb9f071a63ee2c69");
         axios
             .all([requestOne, requestTwo, requestThree])
             .then(response => this.games = response)
@@ -206,33 +245,41 @@ export default {
     // Экран с данными справа, диски E,F
 
     LinkToNextDirectorySecond(e) {
-      if (e.target.innerText === "Windows!!") {
-        const requestOne = axios.get("http://localhost:3000/post/c/635183fb664dadeb3b7b5e1d");
-        const requestTwo = axios.get("http://localhost:3000/post/c/63518413664dadeb3b7b5e1f");
+      if (e.target.innerText === "Photos") {
+        const requestOne = axios.get("https://vuerostelecom.herokuapp.com/e/63666d30e318d7cdd8cb2f5d");
+        const requestTwo = axios.get("https://vuerostelecom.herokuapp.com/e/6367bdc1cd8cfb2ae34d0197");
+        const requestThree = axios.get("https://vuerostelecom.herokuapp.com/e/6367bde7cd8cfb2ae34d019b");
         axios
-            .all([requestOne, requestTwo])
+            .all([requestOne, requestTwo, requestThree])
             .then(response => this.secondImgs = response)
         this.secondImgs = true
-      } else if (e.target.innerText === "Program Files") {
-        const requestOne = axios.get("http://localhost:3000/post/c/6363991bbb9f071a63ee2bbc");
-        const requestTwo = axios.get("http://localhost:3000/post/c/6363a03ebb9f071a63ee2c56");
+      } else if (e.target.innerText === "Files") {
+        const requestOne = axios.get("https://vuerostelecom.herokuapp.com/e/6367bfa2cd8cfb2ae34d01da");
+        const requestTwo = axios.get("https://vuerostelecom.herokuapp.com/e/6367bfaacd8cfb2ae34d01dc");
         axios
             .all([requestOne, requestTwo])
             .then(response => this.secondVideos = response)
         this.secondVideos = true
 
-      } else if (e.target.innerText === "Games") {
-        const requestOne = axios.get("http://localhost:3000/post/d/6363a129bb9f071a63ee2c65");
-        const requestTwo = axios.get("http://localhost:3000/post/d/6363a13dbb9f071a63ee2c67");
-        const requestThree = axios.get("http://localhost:3000/post/d/6363a159bb9f071a63ee2c69");
+      } else if (e.target.innerText === "Keys") {
+        const requestOne = axios.get("https://vuerostelecom.herokuapp.com/f/6367c214cd8cfb2ae34d0204");
+        const requestTwo = axios.get("https://vuerostelecom.herokuapp.com/f/6367c221cd8cfb2ae34d0206");
         axios
-            .all([requestOne, requestTwo, requestThree])
+            .all([requestOne, requestTwo])
             .then(response => this.secondGames = response)
         this.secondGames = true
       }
     },
     addDirectoryName(e) {
       this.$emit("VideoClick", e.currentTarget.innerText)
+    },
+    addDirectoryNameRight(e) {
+      this.$emit("VideoClickRight", e.currentTarget.innerText)
+    },
+    sendNames(e) {
+      e.currentTarget.innerText = this.innerNames
+      console.log(this.innerNames)
+      this.$emit("sendNames", this.innerNames)
     }
   },
 }
