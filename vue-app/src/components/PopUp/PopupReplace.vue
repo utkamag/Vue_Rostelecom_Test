@@ -1,7 +1,7 @@
 <template>
   <div class="popup">
     <div class="popup__content">
-      <h2 class="popup__title">Переместить ... в ...?</h2>
+      <h2 class="popup__title">Переместить в ...?</h2>
       <div class="popup__btn">
         <button class="popup__btn1" @click="btn1click">Переместить</button>
         <button class="popup__btn2" @click="btn2click">Отмена</button>
